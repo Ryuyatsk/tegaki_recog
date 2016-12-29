@@ -1,11 +1,14 @@
 class Image::RegisterController < ApplicationController
 
+  # *** トップページ ***
   def index
     tmp = TmpImage.first
     @image = tmp[:filename]
     @blocks = TextBlock.view_css(tmp[:image_id])
   end
 
+
+  # *** ラベル登録用のメソッド ***
   def register
     pos = params[:pos]
     text = TextBlock.create(
@@ -17,6 +20,15 @@ class Image::RegisterController < ApplicationController
     redirect_to root_path
   end
 
+
+  # *** 前の操作を取り消すメソッド ***
+  def delete
+    TextBlock.last.delete
+    redirect_to root_path
+  end
+
+
+  # *** 次の画像に移動するメソッド ***
   def next
     # 現状の画像を完了に
     tmp = TmpImage.first
@@ -40,11 +52,8 @@ class Image::RegisterController < ApplicationController
     redirect_to root_path
   end
 
-  def delete
-    TextBlock.last.delete
-    redirect_to root_path
-  end
 
+  # *** ダウンロードページ ***
   def download
     respond_to do |format|
       format.html
@@ -55,7 +64,10 @@ class Image::RegisterController < ApplicationController
     end
   end
 
+
+  # *** リセット（初期化）用のページ ***
   def reset
+    # データベースの中身を削除する
     Image.all.each do |t|
       t.delete
     end
@@ -65,6 +77,7 @@ class Image::RegisterController < ApplicationController
     TextBlock.all.each do |t|
       t.delete
     end
+    # 最初の画像を指定する ※ サンプル画像以外の場合はこちらを書き換え
     image = Image.create(filename:"image_sample_01.png")
     TmpImage.create(filename:image[:filename], image_id: image.id)
     redirect_to root_path
