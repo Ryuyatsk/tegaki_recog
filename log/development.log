@@ -10476,3 +10476,13 @@ Processing by Image::RegisterController#index as HTML
 Completed 200 OK in 2524ms (Views: 2458.3ms | ActiveRecord: 4.2ms)
 
 
+Started GET "/" for ::1 at 2016-12-30 01:15:09 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Image::RegisterController#index as HTML
+  [1m[36mTmpImage Load (0.7ms)[0m  [1m[34mSELECT  "tmp_images".* FROM "tmp_images" ORDER BY "tmp_images"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTextBlock Load (0.9ms)[0m  [1m[34mSELECT "text_blocks".* FROM "text_blocks" WHERE "text_blocks"."image_id" = ?[0m  [["image_id", 26]]
+  Rendering image/register/index.html.slim within layouts/application
+  Rendered image/register/index.html.slim within layouts/application (2067.6ms)
+Completed 200 OK in 2345ms (Views: 2302.3ms | ActiveRecord: 2.8ms)
+
+
