@@ -2,7 +2,6 @@ class TextBlock < ApplicationRecord
   validates :text, :x1, :x2, :y1, :y2, :image_id, presence: true
 
   def self.view_css(image_id)
-    output = {}
     texts = self.where(image_id: image_id)
     texts.map do |t|
       {

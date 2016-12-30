@@ -264,3 +264,72 @@ Processing by Image::RegisterController#index as HTML
 Completed 200 OK in 247ms (Views: 241.5ms | ActiveRecord: 0.4ms)
 
 
+Started GET "/" for ::1 at 2016-12-30 12:46:48 +0900
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1m[34mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Image::RegisterController#index as HTML
+  [1m[36mTmpImage Load (0.6ms)[0m  [1m[34mSELECT  "tmp_images".* FROM "tmp_images" ORDER BY "tmp_images"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTextBlock Load (1.6ms)[0m  [1m[34mSELECT "text_blocks".* FROM "text_blocks" WHERE "text_blocks"."image_id" = ?[0m  [["image_id", 30]]
+  Rendering image/register/index.html.slim within layouts/application
+  Rendered image/register/index.html.slim within layouts/application (593.2ms)
+Completed 200 OK in 823ms (Views: 757.9ms | ActiveRecord: 4.8ms)
+
+
+Started POST "/image/register" for ::1 at 2016-12-30 12:46:58 +0900
+Processing by Image::RegisterController#register as HTML
+  Parameters: {"utf8"=>"✓", "authenticity_token"=>"WJAp+Yx69V/igkXc+89SrNQLfhAH1JzLrtQemiGdfVQoUswTFaLTazzEN2mlz8bIhjoyJtyNQo7PrJt8M/WChg==", "pos"=>{"pos1_x1"=>"408", "pos1_y1"=>"59", "pos2_x2"=>"470", "pos2_y2"=>"76", "text"=>"吉崎亮介"}, "commit"=>"登録"}
+  [1m[36mTmpImage Load (0.3ms)[0m  [1m[34mSELECT  "tmp_images".* FROM "tmp_images" ORDER BY "tmp_images"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[32mINSERT INTO "text_blocks" ("image_id", "text", "x1", "x2", "y1", "y2", "created_at", "updated_at") VALUES (?, ?, ?, ?, ?, ?, ?, ?)[0m  [["image_id", 30], ["text", "吉崎亮介"], ["x1", 408], ["x2", 470], ["y1", 59], ["y2", 76], ["created_at", 2016-12-30 03:46:58 UTC], ["updated_at", 2016-12-30 03:46:58 UTC]]
+  [1m[35m (1.1ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 12ms (ActiveRecord: 2.4ms)
+
+
+Started GET "/" for ::1 at 2016-12-30 12:46:58 +0900
+Processing by Image::RegisterController#index as HTML
+  [1m[36mTmpImage Load (0.3ms)[0m  [1m[34mSELECT  "tmp_images".* FROM "tmp_images" ORDER BY "tmp_images"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTextBlock Load (0.3ms)[0m  [1m[34mSELECT "text_blocks".* FROM "text_blocks" WHERE "text_blocks"."image_id" = ?[0m  [["image_id", 30]]
+  Rendering image/register/index.html.slim within layouts/application
+  Rendered image/register/index.html.slim within layouts/application (35.9ms)
+Completed 200 OK in 186ms (Views: 172.4ms | ActiveRecord: 0.6ms)
+
+
+Started GET "/image/reset" for ::1 at 2016-12-30 12:47:03 +0900
+Processing by Image::RegisterController#reset as HTML
+  [1m[35mSQL (9.3ms)[0m  [1m[31mDELETE FROM "images"[0m
+  [1m[35mSQL (1.4ms)[0m  [1m[31mDELETE FROM "tmp_images"[0m
+  [1m[35mSQL (3.7ms)[0m  [1m[31mDELETE FROM "text_blocks"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.5ms)[0m  [1m[32mINSERT INTO "images" ("filename", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["filename", "image_sample_01.png"], ["created_at", 2016-12-30 03:47:03 UTC], ["updated_at", 2016-12-30 03:47:03 UTC]]
+  [1m[35m (1.5ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "tmp_images" ("filename", "image_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["filename", "image_sample_01.png"], ["image_id", 31], ["created_at", 2016-12-30 03:47:03 UTC], ["updated_at", 2016-12-30 03:47:03 UTC]]
+  [1m[35m (1.6ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 41ms (ActiveRecord: 21.1ms)
+
+
+Started GET "/image/reset" for ::1 at 2016-12-30 12:47:03 +0900
+Processing by Image::RegisterController#reset as HTML
+  [1m[35mSQL (1.1ms)[0m  [1m[31mDELETE FROM "images"[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[31mDELETE FROM "tmp_images"[0m
+  [1m[35mSQL (0.9ms)[0m  [1m[31mDELETE FROM "text_blocks"[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.4ms)[0m  [1m[32mINSERT INTO "images" ("filename", "created_at", "updated_at") VALUES (?, ?, ?)[0m  [["filename", "image_sample_01.png"], ["created_at", 2016-12-30 03:47:03 UTC], ["updated_at", 2016-12-30 03:47:03 UTC]]
+  [1m[35m (0.7ms)[0m  [1m[36mcommit transaction[0m
+  [1m[35m (0.1ms)[0m  [1m[36mbegin transaction[0m
+  [1m[35mSQL (0.3ms)[0m  [1m[32mINSERT INTO "tmp_images" ("filename", "image_id", "created_at", "updated_at") VALUES (?, ?, ?, ?)[0m  [["filename", "image_sample_01.png"], ["image_id", 32], ["created_at", 2016-12-30 03:47:03 UTC], ["updated_at", 2016-12-30 03:47:03 UTC]]
+  [1m[35m (4.8ms)[0m  [1m[36mcommit transaction[0m
+Redirected to http://localhost:3000/
+Completed 302 Found in 15ms (ActiveRecord: 9.2ms)
+
+
+Started GET "/" for ::1 at 2016-12-30 12:47:03 +0900
+Processing by Image::RegisterController#index as HTML
+  [1m[36mTmpImage Load (0.6ms)[0m  [1m[34mSELECT  "tmp_images".* FROM "tmp_images" ORDER BY "tmp_images"."id" ASC LIMIT ?[0m  [["LIMIT", 1]]
+  [1m[36mTextBlock Load (0.4ms)[0m  [1m[34mSELECT "text_blocks".* FROM "text_blocks" WHERE "text_blocks"."image_id" = ?[0m  [["image_id", 32]]
+  Rendering image/register/index.html.slim within layouts/application
+  Rendered image/register/index.html.slim within layouts/application (21.8ms)
+Completed 200 OK in 225ms (Views: 216.5ms | ActiveRecord: 1.0ms)
+
+
