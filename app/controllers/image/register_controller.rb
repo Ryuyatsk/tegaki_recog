@@ -33,19 +33,17 @@ class Image::RegisterController < ApplicationController
     # 現状の画像を完了に
     tmp = TmpImage.first
     image = Image.find_by(filename: tmp[:filename])
-    image.update_attribute(:is_complete, true)
+    image.update(is_complete: true)
     # 新しい画像に切り替える
     files = Dir::entries("app/assets/images/")
     files.each do |file|
-      if file.include?(".jpg") || file.include?(".png") || file.include?(".jpeg")
-        # ファイル名が既に書き込まれていないか確認
-        db_files = Image.where(filename: file)
-        if db_files.empty?
-          image = Image.create(filename: file)
-          TmpImage.first.update_attribute(:filename, file)
-          TmpImage.first.update_attribute(:image_id, image.id)
-          break
-        end
+      next unless %w(.jpg .png .jpeg).include?(File.extname(file))
+      # ファイル名が既に書き込まれていないか確認
+      db_files = Image.where(filename: file)
+      if db_files.empty?
+        image = Image.create(filename: file)
+        TmpImage.first.update(filename: file, image_id: image.id)
+        break
       end
     end
     # トップページへ遷移
@@ -68,15 +66,9 @@ class Image::RegisterController < ApplicationController
   # *** リセット（初期化）用のページ ***
   def reset
     # データベースの中身を削除する
-    Image.all.each do |t|
-      t.delete
-    end
-    TmpImage.all.each do |t|
-      t.delete
-    end
-    TextBlock.all.each do |t|
-      t.delete
-    end
+    Image.delete_all
+    TmpImage.delete_all
+    TextBlock.delete_all
     # 最初の画像を指定する ※ サンプル画像以外の場合はこちらを書き換え
     image = Image.create(filename:"image_sample_01.png")
     TmpImage.create(filename:image[:filename], image_id: image.id)

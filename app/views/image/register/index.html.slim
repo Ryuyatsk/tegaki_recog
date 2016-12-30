@@ -8,7 +8,7 @@ div.float2
   div#main-image
     = image_tag @image, id:"image"
     div.child id="text-pos"
-    - @blocks.each do |key, blk|
+    - @blocks.each do |blk|
       div.child style="top: #{blk[:y]}px; left:#{blk[:x]}px; width:#{blk[:width]}px; height:#{blk[:height]}px;"
     
 div.float2
